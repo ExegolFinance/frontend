@@ -1,0 +1,26 @@
+{
+  "name": "gen3-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "gen3-frontend",
+  "author": "Shoham Chakraborty",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "gatsby": "^4.22.0",
+    "gatsby-plugin-postcss": "^5.22.0",
+    "gatsby-plugin-react-helmet": "^5.22.0",
+    "postcss": "^8.4.16",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-helmet": "^6.1.0"
+  }
+}
