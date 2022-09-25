@@ -3,14 +3,19 @@ import React, { useState, useEffect } from "react";
 import { BigNumber, ethers } from "ethers";
 import { getGen3Contract } from "./Gen3";
 
+import { useSetChain } from "@web3-onboard/react";
+
 const WithdrawModal = ({
   signer,
+  setTx,
 }: {
   signer: ethers.providers.JsonRpcSigner;
+  setTx: React.Dispatch<React.SetStateAction<string>>;
 }) => {
+  const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
+
   const [GEN3, setGEN3] = useState(0);
   const [deposit, setDeposit] = useState("0");
-  const [transaction, setTransaction] = useState("");
   const [error, setError] = useState(false);
   const decimals = 6;
 
@@ -27,18 +32,27 @@ const WithdrawModal = ({
   };
 
   const withdrawGen3 = async () => {
+    setError(false);
     const contract = getGen3Contract(signer);
 
     try {
       const tx = await contract.burnG32(parseFloat(deposit) * Math.pow(10, 6));
-      setTransaction(tx.hash);
+      setTx(tx.hash);
     } catch {
       setError(true);
     }
   };
 
+  const checkChain = async () => {
+    if (connectedChain && connectedChain.id !== "0x5") {
+      await setChain({ chainId: "0x5" });
+    }
+  };
+
   useEffect(() => {
-    getBalances();
+    checkChain().then(() => {
+      getBalances();
+    });
   }, []);
 
   return (
@@ -51,7 +65,7 @@ const WithdrawModal = ({
         ) : (
           <></>
         )}
-        <span>Available: {GEN3} GEN3</span>
+        <span>Available: {GEN3} eUSD</span>
 
         <div className="flex space-x-2">
           <input
@@ -74,16 +88,6 @@ const WithdrawModal = ({
         >
           Withdraw
         </div>
-
-        {transaction ? (
-          <div>
-            <a href={`https://goerli.etherscan.io/tx/${transaction}`}>
-              {transaction}
-            </a>
-          </div>
-        ) : (
-          <></>
-        )}
       </div>
     </div>
   );

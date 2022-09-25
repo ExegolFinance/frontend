@@ -4,14 +4,19 @@ import { BigNumber, ethers } from "ethers";
 import { getUSDCContract } from "./USDC";
 import { getGen3Contract } from "./Gen3";
 
+import { useSetChain } from "@web3-onboard/react";
+
 const DepositModal = ({
   signer,
+  setTx,
 }: {
   signer: ethers.providers.JsonRpcSigner;
+  setTx: React.Dispatch<React.SetStateAction<string>>;
 }) => {
+  const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
+
   const [USDC, setUSDC] = useState(0);
   const [deposit, setDeposit] = useState("0");
-  const [transaction, setTransaction] = useState("");
   const [error, setError] = useState(false);
   const decimals = 6;
 
@@ -32,14 +37,22 @@ const DepositModal = ({
 
     try {
       const tx = await contract.mint(parseFloat(deposit) * Math.pow(10, 6));
-      setTransaction(tx.hash);
+      setTx(tx.hash);
     } catch {
       setError(true);
     }
   };
 
+  const checkChain = async () => {
+    if (connectedChain && connectedChain.id !== "0x5") {
+      await setChain({ chainId: "0x5" });
+    }
+  };
+
   useEffect(() => {
-    getBalances();
+    checkChain().then(() => {
+      getBalances();
+    });
   }, []);
 
   return (
@@ -75,16 +88,6 @@ const DepositModal = ({
         >
           Deposit
         </div>
-
-        {transaction ? (
-          <div>
-            <a href={`https://goerli.etherscan.io/tx/${transaction}`}>
-              {transaction}
-            </a>
-          </div>
-        ) : (
-          <></>
-        )}
       </div>
     </div>
   );
