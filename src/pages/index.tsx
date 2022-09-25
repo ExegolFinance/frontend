@@ -80,47 +80,22 @@ const IndexPage = () => {
   }, [wallet]);
 
   return (
-    <div>
+    <div className="bg-egg-white h-screen overflow-y-clip">
       <ToastContainer position="top-right" />
-      <Header wallet={wallet} connect={connect} disconnect={disconnect} />
+      <Header
+        wallet={wallet}
+        connect={connect}
+        disconnect={disconnect}
+        deposit={deposit}
+        setDeposit={setDeposit}
+      />
 
-      <div className="flex bg-slate-200 w-screen h-screen items-center justify-center">
-        <div className="flex flex-col p-2 rounded-xl bg-slate-50 min-w-[33%] items-center justify-center space-y-2">
+      <div className="flex w-full h-full items-start mt-24 justify-center">
+        <div className="flex flex-col p-2 rounded-xl bg-white min-w-[33%] items-center justify-center space-y-2 shadow">
           {!wallet ? (
             <span className="text-2xl">Connect a wallet first.</span>
           ) : (
             <>
-              <div className="flex rounded w-full">
-                {deposit ? (
-                  <div className="flex w-full justify-center bg-slate-200 rounded cursor-pointer">
-                    Deposit
-                  </div>
-                ) : (
-                  <div
-                    className="flex w-full justify-center rounded cursor-pointer"
-                    onClick={() => {
-                      setDeposit(true);
-                    }}
-                  >
-                    Deposit
-                  </div>
-                )}
-
-                {!deposit ? (
-                  <div className="flex w-full justify-center bg-slate-200 rounded cursor-pointer">
-                    Withdraw
-                  </div>
-                ) : (
-                  <div
-                    className="flex w-full justify-center rounded cursor-pointer"
-                    onClick={() => {
-                      setDeposit(false);
-                    }}
-                  >
-                    Withdraw
-                  </div>
-                )}
-              </div>
               {deposit && provider ? (
                 <DepositModal
                   signer={provider.getUncheckedSigner()}

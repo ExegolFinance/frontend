@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: Avenir;
+    font-weight: lighter;
+    src: url("./AvenirLTStd-Book.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Avenir;
+    src: url("./AvenirLTStd-Roman.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Avenir;
+    font-weight: bold;
+    src: url("./AvenirLTStd-Black.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Recoleta;
+    src: url("./Recoleta-Medium.ttf") format("truetype");
+}
+
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }

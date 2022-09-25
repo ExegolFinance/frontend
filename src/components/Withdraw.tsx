@@ -65,25 +65,27 @@ const WithdrawModal = ({
         ) : (
           <></>
         )}
-        <span>Available: {GEN3} eUSD</span>
+        <span className="ml-auto">
+          Available:<span className="font-logo text-lg"> {GEN3} eUSD</span>
+        </span>
 
         <div className="flex space-x-2">
           <input
             type={"number"}
             value={deposit}
             onChange={(e) => setDeposit(e.target.value)}
-            className="px-2 py-4 w-full rounded"
+            className="px-2 py-2 w-full rounded-xl border"
           />
           <div
             onClick={setDepositMax}
-            className="bg-slate-200 px-2 rounded self-center cursor-pointer"
+            className="bg-button px-2 rounded self-center cursor-pointer"
           >
             MAX
           </div>
         </div>
 
         <div
-          className="w-full bg-white hover:bg-slate-100 rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
+          className="w-full border bg-egg-white shadow-inner hover:bg-button rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
           onClick={withdrawGen3}
         >
           Withdraw
