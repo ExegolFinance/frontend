@@ -24,14 +24,14 @@ const Stats = () => {
       <div className="grid grid-flow-col space-x-24 text-center">
         {/* Stat 1 */}
         <div>
-          <div className="text-2xl font-light">Current Exchange Rate</div>
-          <div className="font-logo text-xl">{exchangeRate} USDC/eUSD</div>
+          <div className="text-xl font-light">Current Exchange Rate</div>
+          <div className="font-logo text-2xl">{exchangeRate} USDC/eUSD</div>
         </div>
 
         {/* Stat 2 */}
         <div>
-          <div className="text-2xl font-light">APY</div>
-          <div className="font-logo text-xl">20%</div>
+          <div className="text-xl font-light">APY</div>
+          <div className="font-logo text-2xl">20%</div>
         </div>
       </div>
     </div>
