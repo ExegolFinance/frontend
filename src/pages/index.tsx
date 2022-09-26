@@ -108,9 +108,9 @@ const IndexPage = () => {
         setDeposit={setDeposit}
       />
 
-      <div className="flex flex-col w-full h-full items-center justify-start mt-24 space-y-4">
+      <div className="flex flex-col w-full h-full items-center justify-start px-2 lg:px-0 mt-24 space-y-4">
         <Stats />
-        <div className="flex flex-col p-2 rounded-xl bg-white min-w-[33%] items-center justify-center space-y-2 shadow">
+        <div className="flex flex-col p-2 rounded-xl bg-white w-full lg:max-w-[33%] items-center justify-center space-y-2 shadow">
           {!wallet ? (
             <span className="text-2xl">Connect a wallet to use dApp.</span>
           ) : (

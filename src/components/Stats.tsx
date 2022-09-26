@@ -20,7 +20,7 @@ const Stats = () => {
   }, []);
 
   return (
-    <div className="flex flex-col p-2 rounded-xl bg-white min-w-[33%] items-center justify-center space-y-2 shadow">
+    <div className="flex flex-col p-2 rounded-xl bg-white w-full lg:max-w-[33%] items-center justify-center space-y-2 shadow">
       <div className="grid grid-flow-col space-x-24 text-center">
         {/* Stat 1 */}
         <div>
