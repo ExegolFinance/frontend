@@ -14,9 +14,7 @@ import { ethers } from "ethers";
 import Header from "../components/Header";
 import DepositModal from "../components/Deposit";
 import WithdrawModal from "../components/Withdraw";
-
-const GOERLI_KEY =
-  "https://goerli.infura.io/v3/4c2d94bd0a3c4836bba9bf3a279eafb3";
+import Stats from "../components/Stats";
 
 const injected = injectedModule();
 const ledger = ledgerModule();
@@ -40,7 +38,9 @@ init({
       id: "0x5",
       token: "ETH",
       label: "Goerli",
-      rpcUrl: GOERLI_KEY,
+      rpcUrl: process.env.INFURA_GOERLI_URL
+        ? process.env.INFURA_GOERLI_URL
+        : "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
     },
   ],
   accountCenter: {
@@ -108,10 +108,11 @@ const IndexPage = () => {
         setDeposit={setDeposit}
       />
 
-      <div className="flex w-full h-full items-start mt-24 justify-center">
+      <div className="flex flex-col w-full h-full items-center justify-start mt-24 space-y-4">
+        <Stats />
         <div className="flex flex-col p-2 rounded-xl bg-white min-w-[33%] items-center justify-center space-y-2 shadow">
           {!wallet ? (
-            <span className="text-2xl">Connect a wallet first.</span>
+            <span className="text-2xl">Connect a wallet to use dApp.</span>
           ) : (
             <>
               {deposit && provider ? (

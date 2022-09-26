@@ -5,6 +5,7 @@
 @font-face {
     font-family: Avenir;
     font-weight: lighter;
+    font-weight: 300;
     src: url("./AvenirLTStd-Book.otf") format("opentype");
 }
 
@@ -16,6 +17,7 @@
 @font-face {
     font-family: Avenir;
     font-weight: bold;
+    font-weight: 700;
     src: url("./AvenirLTStd-Black.otf") format("opentype");
 }
 
