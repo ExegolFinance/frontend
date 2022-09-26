@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: "https://www.theaerarium.fi",
   },
-  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-react-helmet"]
+  plugins: ["gatsby-plugin-postcss"],
 };

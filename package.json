@@ -1,8 +1,8 @@
 {
-  "name": "gen3-frontend",
+  "name": "aerarium-frontend",
   "version": "1.0.0",
   "private": true,
-  "description": "gen3-frontend",
+  "description": "aerarium-frontend",
   "author": "Shoham Chakraborty",
   "keywords": [
     "gatsby"
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@walletconnect/web3-provider": "^1.8.0",
+    "@web3-onboard/coinbase": "^2.1.2",
     "@web3-onboard/core": "^2.8.2",
     "@web3-onboard/injected-wallets": "^2.2.1",
     "@web3-onboard/ledger": "^2.3.0",
@@ -27,14 +28,24 @@
     "gatsby-plugin-react-helmet": "^5.22.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-helmet": "^6.1.0",
     "react-toastify": "^9.0.8",
-    "web3modal": "^1.9.9"
+    "web3modal": "^1.9.9",
+    "webpack": "^5.74.0"
   },
   "devDependencies": {
+    "assert": "^2.0.0",
     "autoprefixer": "^10.4.8",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
     "gatsby-plugin-postcss": "^5.22.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
     "postcss": "^8.4.16",
-    "tailwindcss": "^3.1.8"
+    "process": "^0.11.10",
+    "stream": "^0.0.2",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "tailwindcss": "^3.1.8",
+    "util": "^0.12.4"
   }
 }

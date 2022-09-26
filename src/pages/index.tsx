@@ -1,22 +1,40 @@
 import React, { useEffect, useState } from "react";
 
+import { init, useConnectWallet, useSetChain } from "@web3-onboard/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import injectedModule from "@web3-onboard/injected-wallets";
+import walletConnectModule from "@web3-onboard/walletconnect";
+import coinbaseWalletModule from "@web3-onboard/coinbase";
+import ledgerModule from "@web3-onboard/ledger";
+import trezorModule from "@web3-onboard/trezor";
+
 import { ethers } from "ethers";
 import Header from "../components/Header";
 import DepositModal from "../components/Deposit";
 import WithdrawModal from "../components/Withdraw";
 
-import { init, useConnectWallet, useSetChain } from "@web3-onboard/react";
-import injectedModule from "@web3-onboard/injected-wallets";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 const GOERLI_KEY =
   "https://goerli.infura.io/v3/4c2d94bd0a3c4836bba9bf3a279eafb3";
 
 const injected = injectedModule();
+const ledger = ledgerModule();
+const coinbaseWallet = coinbaseWalletModule({ darkMode: false });
+
+const walletConnect = walletConnectModule({
+  qrcodeModalOptions: {
+    mobileLinks: ["rainbow", "metamask"],
+  },
+});
+
+const trezor = trezorModule({
+  email: "hello@theaerarium.fi",
+  appUrl: "https://www.theaerarium.fi",
+});
 
 init({
-  wallets: [injected],
+  wallets: [injected, ledger, trezor, walletConnect, coinbaseWallet],
   chains: [
     {
       id: "0x5",
@@ -118,3 +136,7 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
+
+export function Head() {
+  return <title>The Aerarium</title>;
+}
