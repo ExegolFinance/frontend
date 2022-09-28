@@ -51,7 +51,7 @@ const WithdrawModal = ({
     const contract = getGen3Contract(signer);
 
     try {
-      const tx = await contract.burnG32(parseFloat(deposit) * Math.pow(10, 6));
+      const tx = await contract.withdraw(parseFloat(deposit) * Math.pow(10, 6));
       setTx(tx.hash);
     } catch {
       setError(true);

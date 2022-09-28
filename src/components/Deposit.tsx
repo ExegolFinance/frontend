@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useSetChain } from "@web3-onboard/react";
 
 import { BigNumber, ethers } from "ethers";
 import { getUSDCContract } from "./USDC";
 import { getGen3Contract } from "./Gen3";
 
-import { useSetChain } from "@web3-onboard/react";
+import { TxResolve } from "../utils/TxResolve";
 
 const DepositModal = ({
   signer,
@@ -19,7 +20,7 @@ const DepositModal = ({
   const [allowance, setAllowance] = useState("0");
   const [needApprove, setNeedApprove] = useState(false);
   const [deposit, setDeposit] = useState("0");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string>("");
   const decimals = 6;
 
   const getBalances = async () => {
@@ -51,8 +52,9 @@ const DepositModal = ({
         parseFloat(deposit) * Math.pow(10, decimals)
       );
       setTx(tx.hash);
-    } catch {
-      setError(true);
+    } catch (e) {
+      console.log(e);
+      setError("Transaction declined");
     }
   };
 
@@ -62,11 +64,19 @@ const DepositModal = ({
 
     try {
       const approveAmount: BigNumber =
-        deposit === "0" ? ethers.constants.MaxUint256 : BigNumber.from(deposit);
+        deposit === "0"
+          ? ethers.constants.MaxUint256
+          : BigNumber.from(parseFloat(deposit) * Math.pow(10, decimals));
 
       const tx = await contract.approve(eUSD.address, approveAmount);
+      setTx(tx.hash);
+
+      const receipt = await tx.wait();
+      if (receipt.status == 0) {
+        setError("Transaction reverted");
+      }
     } catch {
-      setError(true);
+      setError("Transaction declined");
     }
   };
 
@@ -87,7 +97,7 @@ const DepositModal = ({
       <div className="flex flex-col w-full">
         {error ? (
           <div className="flex w-full bg-red-500 text-white rounded justify-center">
-            Something went wrong. Please try again or go to Discord for help.
+            {error}
           </div>
         ) : (
           <></>
@@ -104,6 +114,8 @@ const DepositModal = ({
               setDeposit(e.target.value);
               if (e.target.value > allowance) {
                 setNeedApprove(true);
+              } else {
+                setNeedApprove(false);
               }
             }}
             className="px-2 py-2 w-full rounded-xl border"

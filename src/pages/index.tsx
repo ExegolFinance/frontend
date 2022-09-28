@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { ethers } from "ethers";
 import { init, useConnectWallet, useSetChain } from "@web3-onboard/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +11,6 @@ import coinbaseWalletModule from "@web3-onboard/coinbase";
 import ledgerModule from "@web3-onboard/ledger";
 import trezorModule from "@web3-onboard/trezor";
 
-import { ethers } from "ethers";
 import Header from "../components/Header";
 import DepositModal from "../components/Deposit";
 import WithdrawModal from "../components/Withdraw";
