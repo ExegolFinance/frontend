@@ -28,11 +28,12 @@ const WithdrawModal = ({
     const gen3Balance: BigNumber = await contract.balanceOf(address);
 
     setGEN3(gen3Balance.toNumber() / Math.pow(10, decimals));
-    setWithdrawFee(
-      (
-        (await contract.getWithdrawFee()).toNumber() / Math.pow(10, decimals)
-      ).toString()
-    );
+
+    const withdrawFee =
+      (await contract.getWithdrawFee(address)).toNumber() / Math.pow(10, 6);
+    const maxFee = (await contract.maxFee()).toNumber() / Math.pow(10, 6);
+
+    setWithdrawFee((withdrawFee * maxFee * 100).toFixed(2).toString());
     setLiquidity(
       (
         (await contract.availableLiquidity()).toNumber() /

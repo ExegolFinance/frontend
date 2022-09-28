@@ -5,7 +5,7 @@ const getGen3Contract = (
   signer: ethers.providers.JsonRpcSigner | ethers.providers.JsonRpcProvider
 ) => {
   return new ethers.Contract(
-    "0xa878D90a684a500C5a79b0A7440f2F8AB3ffDd76",
+    "0xc4cB75b6251dd852D7c1Ff750A1a0f76b656BD06",
     ABI,
     signer
   );

@@ -16,6 +16,8 @@ const DepositModal = ({
   const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
 
   const [USDC, setUSDC] = useState(0);
+  const [allowance, setAllowance] = useState("0");
+  const [needApprove, setNeedApprove] = useState(false);
   const [deposit, setDeposit] = useState("0");
   const [error, setError] = useState(false);
   const decimals = 6;
@@ -23,9 +25,18 @@ const DepositModal = ({
   const getBalances = async () => {
     const address = await signer.getAddress();
     const contract = getUSDCContract(signer);
-    const gen3Balance: BigNumber = await contract.balanceOf(address);
+    const eUSD = getGen3Contract(signer);
+    const USDCBalance: BigNumber = await contract.balanceOf(address);
+    const USDCAllowance: BigNumber = await contract.allowance(
+      address,
+      eUSD.address
+    );
 
-    setUSDC(gen3Balance.toNumber() / Math.pow(10, decimals));
+    setAllowance(
+      (USDCAllowance.toNumber() / Math.pow(10, decimals)).toString()
+    );
+    if (USDCAllowance.toNumber() === 0) setNeedApprove(true);
+    setUSDC(USDCBalance.toNumber() / Math.pow(10, decimals));
   };
 
   const setDepositMax = () => {
@@ -36,8 +47,24 @@ const DepositModal = ({
     const contract = getGen3Contract(signer);
 
     try {
-      const tx = await contract.mint(parseFloat(deposit) * Math.pow(10, 6));
+      const tx = await contract.mint(
+        parseFloat(deposit) * Math.pow(10, decimals)
+      );
       setTx(tx.hash);
+    } catch {
+      setError(true);
+    }
+  };
+
+  const approveUSDC = async () => {
+    const contract = getUSDCContract(signer);
+    const eUSD = getGen3Contract(signer);
+
+    try {
+      const approveAmount: BigNumber =
+        deposit === "0" ? ethers.constants.MaxUint256 : BigNumber.from(deposit);
+
+      const tx = await contract.approve(eUSD.address, approveAmount);
     } catch {
       setError(true);
     }
@@ -73,7 +100,12 @@ const DepositModal = ({
           <input
             type={"number"}
             value={deposit}
-            onChange={(e) => setDeposit(e.target.value)}
+            onChange={(e) => {
+              setDeposit(e.target.value);
+              if (e.target.value > allowance) {
+                setNeedApprove(true);
+              }
+            }}
             className="px-2 py-2 w-full rounded-xl border"
           />
           <div
@@ -84,12 +116,21 @@ const DepositModal = ({
           </div>
         </div>
 
-        <div
-          className="w-full border bg-egg-white shadow-inner hover:bg-button rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
-          onClick={depositUSDC}
-        >
-          Deposit
-        </div>
+        {needApprove ? (
+          <div
+            className="w-full border bg-egg-white shadow-inner hover:bg-button rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
+            onClick={approveUSDC}
+          >
+            Approve
+          </div>
+        ) : (
+          <div
+            className="w-full border bg-egg-white shadow-inner hover:bg-button rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
+            onClick={depositUSDC}
+          >
+            Deposit
+          </div>
+        )}
       </div>
     </div>
   );
