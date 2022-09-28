@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSetChain } from "@web3-onboard/react";
 
 import { BigNumber, ethers } from "ethers";
-import { getUSDCContract } from "./USDC";
-import { getEUSDContract } from "./eUSD";
+import { getUSDCContract } from "../utils/USDC";
+import { getEUSDContract } from "../utils/eUSD";
 
 const DepositModal = ({
   signer,

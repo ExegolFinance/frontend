@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import ABI from "./USDC_abi.json";
+import ABI from "./abi/ERC20-abi.json";
 
 const getUSDCContract = (signer: ethers.providers.JsonRpcSigner) => {
   return new ethers.Contract(

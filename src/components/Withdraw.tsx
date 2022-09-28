@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 
 import { BigNumber, ethers } from "ethers";
-import { getEUSDContract } from "./eUSD";
+import { getEUSDContract } from "../utils/eUSD";
 
 import { useSetChain } from "@web3-onboard/react";
 

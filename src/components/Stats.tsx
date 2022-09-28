@@ -1,8 +1,7 @@
-import { WalletState } from "@web3-onboard/core";
 import { BigNumber, ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 
-import { getEUSDContract } from "./eUSD";
+import { getEUSDContract } from "../utils/eUSD";
 
 const Stats = () => {
   const [exchangeRate, setExchangeRate] = useState("???");
