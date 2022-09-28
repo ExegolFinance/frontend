@@ -52,7 +52,7 @@ const WithdrawModal = ({
 
     try {
       const tx = await contract.withdraw(parseFloat(deposit) * Math.pow(10, 6));
-      setTx(tx.hash);
+      setTx(tx);
     } catch {
       setError(true);
     }

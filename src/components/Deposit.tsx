@@ -5,8 +5,6 @@ import { BigNumber, ethers } from "ethers";
 import { getUSDCContract } from "./USDC";
 import { getGen3Contract } from "./Gen3";
 
-import { TxResolve } from "../utils/TxResolve";
-
 const DepositModal = ({
   signer,
   setTx,
@@ -51,7 +49,7 @@ const DepositModal = ({
       const tx = await contract.mint(
         parseFloat(deposit) * Math.pow(10, decimals)
       );
-      setTx(tx.hash);
+      setTx(tx);
     } catch (e) {
       console.log(e);
       setError("Transaction declined");
@@ -69,7 +67,7 @@ const DepositModal = ({
           : BigNumber.from(parseFloat(deposit) * Math.pow(10, decimals));
 
       const tx = await contract.approve(eUSD.address, approveAmount);
-      setTx(tx.hash);
+      setTx(tx);
 
       const receipt = await tx.wait();
       if (receipt.status == 0) {

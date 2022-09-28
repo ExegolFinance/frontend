@@ -29,7 +29,12 @@
 @layer base {
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+        -webkit-appearance: none;
+        margin: 0;
     }
-  }
+}
+
+:root {
+    --onboard-white: #f7f7f2;
+    --onboard-gray-100: #e7e4e1;
+}

@@ -43,6 +43,9 @@ init({
         : "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
     },
   ],
+  // appMetadata: {
+  //   name: "The Aerarium",
+  // },
   accountCenter: {
     desktop: {
       enabled: false,
@@ -58,7 +61,7 @@ const IndexPage = () => {
   const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
 
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
-  const [tx, setTx] = useState("");
+  const [tx, setTx] = useState<any>();
 
   const openEtherscan = (tx) => {
     if (window) {
@@ -69,24 +72,14 @@ const IndexPage = () => {
 
   useEffect(() => {
     if (tx) {
-      toast.success(
-        <p>
-          Transaction submitted!
-          <br />
-          Click to open Etherscan.
-        </p>,
+      toast.promise(
+        tx.wait(),
         {
-          position: "top-right",
-          autoClose: 10000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          onClick: () => {
-            openEtherscan(tx);
-          },
-        }
+          pending: "Transaction submitted ⚡",
+          success: "Transaction approved 🔥",
+          error: "Transaction reverted 😓",
+        },
+        { onClick: () => openEtherscan(tx.hash) }
       );
     }
   }, [tx]);
