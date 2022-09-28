@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import ABI from "./abi.json";
 
-const getGen3Contract = (
+const getEUSDContract = (
   signer: ethers.providers.JsonRpcSigner | ethers.providers.JsonRpcProvider
 ) => {
   return new ethers.Contract(
@@ -11,4 +11,4 @@ const getGen3Contract = (
   );
 };
 
-export { getGen3Contract };
+export { getEUSDContract };

@@ -7,7 +7,7 @@ const Header = ({ wallet, disconnect, connect, deposit, setDeposit }) => {
   return (
     <div className="sticky top-4 flex border-2 bg-egg-white rounded-xl mx-2 lg:max-w-[66%] lg:mx-auto">
       <div className="flex items-center ml-2 mr-2 lg:mr-4 font-logo text-xl">
-        The Aerarium
+        Exegol
       </div>
 
       <div className="flex space-x-2 items-center">

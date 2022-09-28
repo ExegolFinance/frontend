@@ -2,7 +2,7 @@ import { WalletState } from "@web3-onboard/core";
 import { BigNumber, ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 
-import { getGen3Contract } from "./Gen3";
+import { getEUSDContract } from "./eUSD";
 
 const Stats = () => {
   const [exchangeRate, setExchangeRate] = useState("???");
@@ -12,7 +12,7 @@ const Stats = () => {
       "goerli",
       process.env.ALCHEMY_KEY
     );
-    const contract = getGen3Contract(web3);
+    const contract = getEUSDContract(web3);
 
     contract.exchangeRate().then((res: BigNumber) => {
       setExchangeRate((res.toNumber() / Math.pow(10, 6)).toString());

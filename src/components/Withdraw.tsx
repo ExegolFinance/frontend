@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 
 import { BigNumber, ethers } from "ethers";
-import { getGen3Contract } from "./Gen3";
+import { getEUSDContract } from "./eUSD";
 
 import { useSetChain } from "@web3-onboard/react";
 
@@ -15,7 +15,7 @@ const WithdrawModal = ({
 }) => {
   const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
 
-  const [GEN3, setGEN3] = useState(0);
+  const [eUSD, setEUSD] = useState(0);
   const [deposit, setDeposit] = useState("0");
   const [withdrawFee, setWithdrawFee] = useState("???");
   const [liquidity, setLiquidity] = useState("???");
@@ -24,10 +24,10 @@ const WithdrawModal = ({
 
   const getBalances = async () => {
     const address = await signer.getAddress();
-    const contract = getGen3Contract(signer);
+    const contract = getEUSDContract(signer);
     const gen3Balance: BigNumber = await contract.balanceOf(address);
 
-    setGEN3(gen3Balance.toNumber() / Math.pow(10, decimals));
+    setEUSD(gen3Balance.toNumber() / Math.pow(10, decimals));
 
     const withdrawFee =
       (await contract.getWithdrawFee(address)).toNumber() / Math.pow(10, 6);
@@ -43,12 +43,12 @@ const WithdrawModal = ({
   };
 
   const setDepositMax = () => {
-    setDeposit(GEN3.toString());
+    setDeposit(eUSD.toString());
   };
 
   const withdrawGen3 = async () => {
     setError(false);
-    const contract = getGen3Contract(signer);
+    const contract = getEUSDContract(signer);
 
     try {
       const tx = await contract.withdraw(parseFloat(deposit) * Math.pow(10, 6));
@@ -83,7 +83,7 @@ const WithdrawModal = ({
           <></>
         )}
         <span className="ml-auto">
-          Available:<span className="font-logo text-lg"> {GEN3} eUSD</span>
+          Available:<span className="font-logo text-lg"> {eUSD} eUSD</span>
         </span>
 
         <div className="flex space-x-2">

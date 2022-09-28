@@ -27,8 +27,8 @@ const walletConnect = walletConnectModule({
 });
 
 const trezor = trezorModule({
-  email: "hello@theaerarium.fi",
-  appUrl: "https://www.theaerarium.fi",
+  email: "hello@exegol.fi",
+  appUrl: "https://www.exegol.fi",
 });
 
 init({
@@ -44,7 +44,7 @@ init({
     },
   ],
   // appMetadata: {
-  //   name: "The Aerarium",
+  //   name: "Exegol",
   // },
   accountCenter: {
     desktop: {
@@ -105,7 +105,9 @@ const IndexPage = () => {
         <Stats />
         <div className="flex flex-col p-2 rounded-xl bg-white w-full lg:max-w-[33%] items-center justify-center space-y-2 shadow">
           {!wallet ? (
-            <span className="text-2xl">Connect a wallet to use dApp.</span>
+            <span className="text-2xl">
+              Connect a wallet to use <span className="font-logo">Exegol</span>.
+            </span>
           ) : (
             <>
               {deposit && provider ? (
@@ -132,5 +134,5 @@ const IndexPage = () => {
 export default IndexPage;
 
 export function Head() {
-  return <title>The Aerarium</title>;
+  return <title>Exegol</title>;
 }

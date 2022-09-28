@@ -3,7 +3,7 @@ import { useSetChain } from "@web3-onboard/react";
 
 import { BigNumber, ethers } from "ethers";
 import { getUSDCContract } from "./USDC";
-import { getGen3Contract } from "./Gen3";
+import { getEUSDContract } from "./eUSD";
 
 const DepositModal = ({
   signer,
@@ -24,7 +24,7 @@ const DepositModal = ({
   const getBalances = async () => {
     const address = await signer.getAddress();
     const contract = getUSDCContract(signer);
-    const eUSD = getGen3Contract(signer);
+    const eUSD = getEUSDContract(signer);
     const USDCBalance: BigNumber = await contract.balanceOf(address);
     const USDCAllowance: BigNumber = await contract.allowance(
       address,
@@ -43,7 +43,7 @@ const DepositModal = ({
   };
 
   const depositUSDC = async () => {
-    const contract = getGen3Contract(signer);
+    const contract = getEUSDContract(signer);
 
     try {
       const tx = await contract.mint(
@@ -58,7 +58,7 @@ const DepositModal = ({
 
   const approveUSDC = async () => {
     const contract = getUSDCContract(signer);
-    const eUSD = getGen3Contract(signer);
+    const eUSD = getEUSDContract(signer);
 
     try {
       const approveAmount: BigNumber =
