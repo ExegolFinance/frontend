@@ -25,9 +25,9 @@ const WithdrawModal = ({
   const getBalances = async () => {
     const address = await signer.getAddress();
     const contract = getEUSDContract(signer);
-    const gen3Balance: BigNumber = await contract.balanceOf(address);
+    const eUSDBalance: BigNumber = await contract.balanceOf(address);
 
-    setEUSD(gen3Balance.toNumber() / Math.pow(10, decimals));
+    setEUSD(eUSDBalance.toNumber() / Math.pow(10, decimals));
 
     const withdrawFee =
       (await contract.getWithdrawFee(address)).toNumber() / Math.pow(10, 6);
@@ -46,7 +46,7 @@ const WithdrawModal = ({
     setDeposit(eUSD.toString());
   };
 
-  const withdrawGen3 = async () => {
+  const withdrawEUSD = async () => {
     setError(false);
     const contract = getEUSDContract(signer);
 
@@ -138,7 +138,7 @@ const WithdrawModal = ({
 
         <div
           className="w-full border bg-egg-white shadow-inner hover:bg-button transition rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
-          onClick={withdrawGen3}
+          onClick={withdrawEUSD}
         >
           Withdraw
         </div>

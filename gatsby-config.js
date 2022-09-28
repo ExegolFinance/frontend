@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.theaerarium.fi",
+    siteUrl: "https://www.exegol.fi",
   },
   plugins: ["gatsby-plugin-postcss"],
 };

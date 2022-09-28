@@ -1,8 +1,8 @@
 {
-  "name": "aerarium-frontend",
+  "name": "exegol-frontend",
   "version": "1.0.0",
   "private": true,
-  "description": "aerarium-frontend",
+  "description": "Frontend for the exegol.fi website",
   "author": "Shoham Chakraborty",
   "keywords": [
     "gatsby"
