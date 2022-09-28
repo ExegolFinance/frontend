@@ -120,7 +120,7 @@ const DepositModal = ({
           />
           <div
             onClick={setDepositMax}
-            className="bg-button px-2 rounded self-center cursor-pointer"
+            className="bg-button hover:bg-active-button transition px-2 rounded self-center cursor-pointer"
           >
             MAX
           </div>
@@ -128,14 +128,14 @@ const DepositModal = ({
 
         {needApprove ? (
           <div
-            className="w-full border bg-egg-white shadow-inner hover:bg-button rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
+            className="w-full border bg-egg-white shadow-inner hover:bg-button transition rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
             onClick={approveUSDC}
           >
             Approve
           </div>
         ) : (
           <div
-            className="w-full border bg-egg-white shadow-inner hover:bg-button rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
+            className="w-full border bg-egg-white shadow-inner hover:bg-button transition rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
             onClick={depositUSDC}
           >
             Deposit

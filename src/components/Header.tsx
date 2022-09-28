@@ -17,7 +17,7 @@ const Header = ({ wallet, disconnect, connect, deposit, setDeposit }) => {
               Buy
             </div>
             <div
-              className="flex bg-button px-4 py-1 my-2 rounded cursor-pointer"
+              className="flex bg-button hover:bg-active-button transition px-4 py-1 my-2 rounded cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
                 setDeposit(false);
@@ -29,7 +29,7 @@ const Header = ({ wallet, disconnect, connect, deposit, setDeposit }) => {
         ) : (
           <>
             <div
-              className="flex bg-button px-4 py-1 my-2 rounded cursor-pointer"
+              className="flex bg-button hover:bg-active-button transition px-4 py-1 my-2 rounded cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
                 setDeposit(true);
@@ -55,7 +55,7 @@ const Header = ({ wallet, disconnect, connect, deposit, setDeposit }) => {
         ) : (
           <></>
         )}
-        <div className="flex bg-button px-2 mx-2 my-2 rounded">
+        <div className="flex bg-button hover:bg-active-button transition px-2 mx-2 my-2 rounded">
           {wallet ? (
             <>
               <button onClick={() => disconnect({ label: wallet.label })}>
