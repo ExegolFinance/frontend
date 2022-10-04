@@ -1,4 +1,6 @@
 import React from "react";
+// @ts-ignore-next-line
+import Logo from "../images/exegol.png";
 
 const GOERLI_KEY =
   "https://goerli.infura.io/v3/4c2d94bd0a3c4836bba9bf3a279eafb3";
@@ -6,7 +8,8 @@ const GOERLI_KEY =
 const Header = ({ wallet, disconnect, connect, deposit, setDeposit }) => {
   return (
     <div className="sticky top-4 flex border-2 bg-egg-white rounded-xl mx-2 lg:max-w-[66%] lg:mx-auto">
-      <div className="flex items-center ml-2 mr-2 lg:mr-4 font-logo text-xl">
+      <img src={Logo} className="h-8 mx-2 lg:ml-2 my-auto" />
+      <div className="hidden lg:flex items-center mr-2 lg:mr-4 font-logo text-xl">
         Exegol
       </div>
 

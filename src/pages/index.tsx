@@ -43,9 +43,9 @@ init({
         : "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
     },
   ],
-  // appMetadata: {
-  //   name: "Exegol",
-  // },
+  connect: {
+    showSidebar: false,
+  },
   accountCenter: {
     desktop: {
       enabled: false,
@@ -134,5 +134,5 @@ const IndexPage = () => {
 export default IndexPage;
 
 export function Head() {
-  return <title>Exegol</title>;
+  return <title>Exegol Finance</title>;
 }
