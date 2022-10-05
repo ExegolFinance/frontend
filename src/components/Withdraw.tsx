@@ -20,6 +20,7 @@ const WithdrawModal = ({
   const [withdrawFee, setWithdrawFee] = useState("???");
   const [liquidity, setLiquidity] = useState("???");
   const [error, setError] = useState(false);
+  const [exchangeRate, setExchangeRate] = useState(-1);
   const decimals = 6;
 
   const getBalances = async () => {
@@ -28,6 +29,7 @@ const WithdrawModal = ({
     const eUSDBalance: BigNumber = await contract.balanceOf(address);
 
     setEUSD(eUSDBalance.toNumber() / Math.pow(10, decimals));
+    setExchangeRate((await contract.exchangeRate()) / Math.pow(10, 6));
 
     const withdrawFee =
       (await contract.getWithdrawFee(address)).toNumber() / Math.pow(10, 6);
@@ -136,11 +138,27 @@ const WithdrawModal = ({
           </div>
         </div>
 
+        {exchangeRate != -1 ? (
+          <div className="flex flex-col mt-2 ml-auto text-right text-lg">
+            <div>
+              <span className="font-light">You will get </span>
+              <span className="font-logo">
+                {deposit
+                  ? (parseFloat(deposit) * exchangeRate).toFixed(2)
+                  : (0).toFixed(2)}{" "}
+                USDC
+              </span>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+
         <div
           className="w-full border bg-egg-white shadow-inner hover:bg-button transition rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
           onClick={withdrawEUSD}
         >
-          Withdraw
+          Sell eUSD
         </div>
       </div>
     </div>
