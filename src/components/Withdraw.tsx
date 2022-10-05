@@ -154,12 +154,18 @@ const WithdrawModal = ({
           <></>
         )}
 
-        <div
-          className="w-full border bg-egg-white shadow-inner hover:bg-button transition rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
-          onClick={withdrawEUSD}
-        >
-          Sell eUSD
-        </div>
+        {parseFloat(deposit) * exchangeRate < parseFloat(liquidity) ? (
+          <div
+            className="w-full border bg-egg-white shadow-inner hover:bg-button transition rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
+            onClick={withdrawEUSD}
+          >
+            Sell eUSD
+          </div>
+        ) : (
+          <div className="w-full disabled border bg-red-300 shadow-inner transition rounded-xl mt-4 text-center px-2 text-lg cursor-pointer">
+            Not enough liquidity
+          </div>
+        )}
       </div>
     </div>
   );
