@@ -5,6 +5,7 @@ import { getEUSDContract } from "../utils/eUSD";
 
 const Stats = () => {
   const [exchangeRate, setExchangeRate] = useState("???");
+  const [TVL, setTVL] = useState("???");
 
   useEffect(() => {
     const web3 = new ethers.providers.AlchemyProvider(
@@ -15,6 +16,9 @@ const Stats = () => {
 
     contract.exchangeRate().then((res: BigNumber) => {
       setExchangeRate((res.toNumber() / Math.pow(10, 6)).toString());
+    });
+    contract.totalSupply().then((res: BigNumber) => {
+      setTVL((res.toNumber() / Math.pow(10, 6)).toFixed(2).toString());
     });
   }, []);
 
@@ -31,6 +35,12 @@ const Stats = () => {
         <div>
           <div className="text-xl font-light">APY</div>
           <div className="font-logo text-2xl">20%</div>
+        </div>
+
+        {/* Stat 3 */}
+        <div className="hidden xl:block">
+          <div className="text-xl font-light">Total Supply</div>
+          <div className="font-logo text-2xl">{TVL} eUSD</div>
         </div>
       </div>
     </div>
