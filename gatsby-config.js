@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.exegol.fi",
+    siteUrl: "https://app.exegol.fi",
   },
   plugins: [
     {
