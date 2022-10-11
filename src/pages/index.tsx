@@ -10,6 +10,7 @@ import walletConnectModule from "@web3-onboard/walletconnect";
 import coinbaseWalletModule from "@web3-onboard/coinbase";
 import ledgerModule from "@web3-onboard/ledger";
 import trezorModule from "@web3-onboard/trezor";
+import gnosisModule from "@web3-onboard/gnosis";
 
 import Header from "../components/Header";
 import DepositModal from "../components/Deposit";
@@ -19,6 +20,7 @@ import Stats from "../components/Stats";
 const injected = injectedModule();
 const ledger = ledgerModule();
 const coinbaseWallet = coinbaseWalletModule({ darkMode: false });
+const gnosis = gnosisModule();
 
 const walletConnect = walletConnectModule({
   qrcodeModalOptions: {
@@ -32,7 +34,7 @@ const trezor = trezorModule({
 });
 
 init({
-  wallets: [injected, ledger, trezor, walletConnect, coinbaseWallet],
+  wallets: [injected, ledger, trezor, walletConnect, coinbaseWallet, gnosis],
   chains: [
     {
       id: "0x5",
@@ -134,5 +136,10 @@ const IndexPage = () => {
 export default IndexPage;
 
 export function Head() {
-  return <title>Exegol Finance</title>;
+  return (
+    <>
+      <title>Exegol Finance</title>
+      <meta name="description" content="A decentralised hedge fund." />
+    </>
+  );
 }
