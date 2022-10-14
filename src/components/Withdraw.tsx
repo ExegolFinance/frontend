@@ -20,7 +20,6 @@ const WithdrawModal = ({
   const [withdrawFee, setWithdrawFee] = useState("???");
   const [liquidity, setLiquidity] = useState("???");
   const [error, setError] = useState(false);
-  const [exchangeRate, setExchangeRate] = useState(-1);
   const decimals = 6;
 
   const getBalances = async () => {
@@ -29,7 +28,6 @@ const WithdrawModal = ({
     const eUSDBalance: BigNumber = await contract.balanceOf(address);
 
     setEUSD(eUSDBalance.toNumber() / Math.pow(10, decimals));
-    setExchangeRate((await contract.exchangeRate()) / Math.pow(10, 6));
 
     const withdrawFee =
       (await contract.getWithdrawFee(address)).toNumber() / Math.pow(10, 6);
@@ -108,7 +106,7 @@ const WithdrawModal = ({
             <span className="font-light">Withdrawal Fee: </span>
             <span className="font-logo">{withdrawFee}%</span>
             <svg
-              data-tip="Withdrawal fee linearly decreases over time and will be 0% after 21 days."
+              data-tip="Withdrawal fee linearly decreases over time and will be 0% after 14 days."
               width="14"
               height="14"
               viewBox="0 0 24 24"
@@ -138,23 +136,16 @@ const WithdrawModal = ({
           </div>
         </div>
 
-        {exchangeRate != -1 ? (
-          <div className="flex flex-col mt-2 ml-auto text-right text-lg">
-            <div>
-              <span className="font-light">You will get </span>
-              <span className="font-logo">
-                {deposit
-                  ? (parseFloat(deposit) * exchangeRate).toFixed(2)
-                  : (0).toFixed(2)}{" "}
-                USDC
-              </span>
-            </div>
+        <div className="flex flex-col mt-2 ml-auto text-right text-lg">
+          <div>
+            <span className="font-light">You will get </span>
+            <span className="font-logo">
+              {deposit ? parseFloat(deposit).toFixed(2) : (0).toFixed(2)} USDC
+            </span>
           </div>
-        ) : (
-          <></>
-        )}
+        </div>
 
-        {parseFloat(deposit) * exchangeRate < parseFloat(liquidity) ? (
+        {parseFloat(deposit) <= parseFloat(liquidity) ? (
           <div
             className="w-full border bg-egg-white shadow-inner hover:bg-button transition rounded-xl mt-4 text-center px-2 text-lg cursor-pointer"
             onClick={withdrawEUSD}

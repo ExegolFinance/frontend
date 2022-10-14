@@ -19,7 +19,6 @@ const DepositModal = ({
   const [needApprove, setNeedApprove] = useState(false);
   const [deposit, setDeposit] = useState("0");
   const [error, setError] = useState<string>("");
-  const [exchangeRate, setExchangeRate] = useState(-1);
   const decimals = 6;
 
   const getBalances = async () => {
@@ -32,7 +31,6 @@ const DepositModal = ({
       eUSD.address
     );
 
-    setExchangeRate((await eUSD.exchangeRate()) / Math.pow(10, 6));
     setAllowance(
       (USDCAllowance.toNumber() / Math.pow(10, decimals)).toString()
     );
@@ -128,21 +126,14 @@ const DepositModal = ({
           </div>
         </div>
 
-        {exchangeRate != -1 ? (
-          <div className="flex flex-col mt-2 ml-auto text-right text-lg">
-            <div>
-              <span className="font-light">You will get </span>
-              <span className="font-logo">
-                {deposit
-                  ? (parseFloat(deposit) / exchangeRate).toFixed(2)
-                  : (0).toFixed(2)}{" "}
-                eUSD
-              </span>
-            </div>
+        <div className="flex flex-col mt-2 ml-auto text-right text-lg">
+          <div>
+            <span className="font-light">You will get </span>
+            <span className="font-logo">
+              {deposit ? parseFloat(deposit).toFixed(2) : (0).toFixed(2)} eUSD
+            </span>
           </div>
-        ) : (
-          <></>
-        )}
+        </div>
 
         {needApprove ? (
           <div

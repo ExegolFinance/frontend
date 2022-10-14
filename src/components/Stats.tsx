@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { getEUSDContract } from "../utils/eUSD";
 
 const Stats = () => {
-  const [exchangeRate, setExchangeRate] = useState("???");
   const [TVL, setTVL] = useState("???");
 
   useEffect(() => {
@@ -14,9 +13,6 @@ const Stats = () => {
     );
     const contract = getEUSDContract(web3);
 
-    contract.exchangeRate().then((res: BigNumber) => {
-      setExchangeRate((res.toNumber() / Math.pow(10, 6)).toString());
-    });
     contract.totalSupply().then((res: BigNumber) => {
       setTVL((res.toNumber() / Math.pow(10, 6)).toFixed(2).toString());
     });
@@ -27,17 +23,11 @@ const Stats = () => {
       <div className="grid grid-flow-col space-x-24 text-center">
         {/* Stat 1 */}
         <div>
-          <div className="font-light">Current Exchange Rate</div>
-          <div className="font-logo text-lg">{exchangeRate} USDC/eUSD</div>
-        </div>
-
-        {/* Stat 2 */}
-        <div>
           <div className="font-light">APY</div>
           <div className="font-logo text-lg">20%</div>
         </div>
 
-        {/* Stat 3 */}
+        {/* Stat 2 */}
         <div className="hidden xl:block">
           <div className="font-light">Total Supply</div>
           <div className="font-logo text-lg">{TVL} eUSD</div>
