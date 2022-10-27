@@ -61,7 +61,12 @@ const Header = ({ wallet, disconnect, connect, deposit, setDeposit }) => {
         <div className="flex bg-button hover:bg-active-button transition px-2 mx-2 my-2 rounded">
           {wallet ? (
             <>
-              <button onClick={() => disconnect({ label: wallet.label })}>
+              <button
+                onClick={() => {
+                  disconnect({ label: wallet.label });
+                  window.localStorage.removeItem("exegolWallets");
+                }}
+              >
                 {wallet.accounts[0].address.substring(0, 6) +
                   "..." +
                   wallet.accounts[0].address.substring(

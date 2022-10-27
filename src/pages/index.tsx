@@ -87,10 +87,23 @@ const IndexPage = () => {
   }, [tx]);
 
   useEffect(() => {
-    if (wallet?.provider) {
+    if (window && wallet?.provider) {
       setProvider(new ethers.providers.Web3Provider(wallet.provider, "any"));
+      window.localStorage.setItem("exegolWallets", wallet.label.toString());
     }
   }, [wallet]);
+
+  useEffect(() => {
+    if (window && window.localStorage.getItem("exegolWallets") != null) {
+      connect({
+        autoSelect: {
+          // @ts-ignore-next-line
+          label: window.localStorage.getItem("exegolWallets")?.toString(),
+          disableModals: true,
+        },
+      });
+    }
+  }, []);
 
   return (
     <div className="bg-egg-white h-screen overflow-y-clip">

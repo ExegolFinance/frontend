@@ -7,9 +7,8 @@ const Stats = () => {
   const [TVL, setTVL] = useState("???");
 
   useEffect(() => {
-    const web3 = new ethers.providers.AlchemyProvider(
-      "goerli",
-      process.env.ALCHEMY_KEY
+    const web3 = new ethers.providers.JsonRpcProvider(
+      "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
     );
     const contract = getEUSDContract(web3);
 
