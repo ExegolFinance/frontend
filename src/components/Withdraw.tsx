@@ -48,6 +48,11 @@ const WithdrawModal = ({
 
   const withdrawEUSD = async () => {
     setError(false);
+    try {
+      await checkChain();
+    } catch {
+      return;
+    }
     const contract = getEUSDContract(signer);
 
     try {
@@ -59,15 +64,19 @@ const WithdrawModal = ({
   };
 
   const checkChain = async () => {
-    if (connectedChain && connectedChain.id !== "0x5") {
-      await setChain({ chainId: "0x5" });
+    if (connectedChain && connectedChain.id !== "0xa4b1") {
+      if (!(await setChain({ chainId: "0xa4b1" })))
+        throw "setChain rejected or failed";
     }
   };
-
   useEffect(() => {
-    checkChain().then(() => {
-      getBalances();
-    });
+    checkChain()
+      .then(() => {
+        getBalances();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (

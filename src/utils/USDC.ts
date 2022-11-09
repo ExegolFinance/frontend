@@ -3,7 +3,7 @@ import ABI from "./abi/ERC20-abi.json";
 
 const getUSDCContract = (signer: ethers.providers.JsonRpcSigner) => {
   return new ethers.Contract(
-    "0x07865c6E87B9F70255377e024ace6630C1Eaa37F",
+    "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
     ABI,
     signer
   );

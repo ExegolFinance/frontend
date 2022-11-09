@@ -37,12 +37,13 @@ init({
   wallets: [injected, ledger, trezor, walletConnect, coinbaseWallet, gnosis],
   chains: [
     {
-      id: "0x5",
+      id: "0xa4b1",
       token: "ETH",
-      label: "Goerli",
-      rpcUrl: process.env.INFURA_GOERLI_URL
-        ? process.env.INFURA_GOERLI_URL
-        : "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+      label: "Arbitrum One",
+      namespace: "evm",
+      rpcUrl: process.env.INFURA_URL
+        ? process.env.INFURA_URL
+        : "https://rpc.ankr.com/arbitrum",
     },
   ],
   connect: {
@@ -68,7 +69,7 @@ const IndexPage = () => {
   const openEtherscan = (tx) => {
     if (window) {
       // @ts-ignore-next-line
-      window.open(`https://goerli.etherscan.io/tx/${tx}`, "_blank").focus();
+      window.open(`https://arbiscan.io/tx/${tx}`, "_blank").focus();
     }
   };
 
