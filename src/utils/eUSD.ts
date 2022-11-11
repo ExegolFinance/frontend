@@ -5,7 +5,7 @@ const getEUSDContract = (
   signer: ethers.providers.JsonRpcSigner | ethers.providers.JsonRpcProvider
 ) => {
   return new ethers.Contract(
-    "0xCFEfC0AF27b4D00950F1857e3477F4706F8C4ac0",
+    "0xa5DAB67e17F5EF0dABEe57B12b37c44e94abE681",
     ABI,
     signer
   );
